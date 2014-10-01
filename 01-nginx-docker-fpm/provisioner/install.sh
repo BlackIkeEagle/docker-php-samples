@@ -43,6 +43,7 @@ cd /var/docker/wordpress-fpm
 )
 
 install -Dm644 /vagrant/provisioner/nginx/01-wordpress.conf /etc/nginx/sites-enabled/01-wordpress.conf
+install -Dm644 /vagrant/provisioner/system/wordpress-fpm.service /etc/systemd/system/wordpress-fpm.service
 
 # mybb
 (
@@ -59,6 +60,7 @@ cd /var/docker/mybb-fpm
 )
 
 install -Dm644 /vagrant/provisioner/nginx/02-mybb.conf /etc/nginx/sites-enabled/02-mybb.conf
+install -Dm644 /vagrant/provisioner/system/mybb-fpm.service /etc/systemd/system/mybb-fpm.service
 
 # owncloud
 (
@@ -74,9 +76,10 @@ cd /var/docker/owncloud-fpm
 )
 
 install -Dm644 /vagrant/provisioner/nginx/03-owncloud.conf /etc/nginx/sites-enabled/03-owncloud.conf
+install -Dm644 /vagrant/provisioner/system/owncloud-fpm.service /etc/systemd/system/owncloud-fpm.service
 
 # enable required services
-systemctl enable docker.service nginx.service
+systemctl enable docker.service nginx.service percona.service wordpress-fpm.service mybb-fpm.service owncloud-fpm.service
 
 # poweroff after install so everything will work as planed after reboot
 poweroff

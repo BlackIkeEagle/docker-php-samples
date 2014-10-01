@@ -1,0 +1,13 @@
+[Unit]
+Description=mybb-fpm
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill mybb-fpm
+ExecStartPre=-/usr/bin/docker rm mybb-fpm
+ExecStart=/usr/bin/docker run --name mybb-fpm -v /srv/mybb:/srv/mybb -p 127.0.0.1:9002:9000 sample/mybb-fpm /usr/sbin/php5-fpm
+ExecStop=/usr/bin/docker stop mybb-fpm
+
+[Install]
+WantedBy=multi-user.target

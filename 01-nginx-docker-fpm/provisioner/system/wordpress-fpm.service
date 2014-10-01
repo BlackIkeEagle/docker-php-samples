@@ -1,0 +1,13 @@
+[Unit]
+Description=wordpress-fpm
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill wordpress-fpm
+ExecStartPre=-/usr/bin/docker rm wordpress-fpm
+ExecStart=/usr/bin/docker run --name wordpress-fpm -v /srv/wordpress:/srv/wordpress -p 127.0.0.1:9001:9000 sample/wordpress-fpm /usr/sbin/php5-fpm
+ExecStop=/usr/bin/docker stop wordpress-fpm
+
+[Install]
+WantedBy=multi-user.target
