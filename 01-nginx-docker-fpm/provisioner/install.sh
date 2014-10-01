@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman -Syu --noconfirm vim unzip nginx docker
+pacman -Syu --noconfirm vim unzip percona-server-clients nginx docker
 
 install -Dm644 /vagrant/provisioner/system/50-docker.conf /etc/sysctl.d/50-docker.conf
 
@@ -12,6 +12,22 @@ mkdir -p /etc/nginx/sites-enabled
 
 rm /etc/nginx/nginx.conf
 install -Dm644 /vagrant/provisioner/nginx/nginx.conf /etc/nginx/nginx.conf
+
+# percona
+(
+cd /var/docker/percona
+./build.sh
+./init.sh
+./run.sh &
+sleep 10
+mysql -uadmin -padmin -h127.0.0.1 -e 'CREATE DATABASE wordpress DEFAULT CHARSET UTF8;'
+mysql -uadmin -padmin -h127.0.0.1 -e 'CREATE DATABASE mybb DEFAULT CHARSET UTF8;'
+mysql -uadmin -padmin -h127.0.0.1 -e 'CREATE DATABASE owncloud DEFAULT CHARSET UTF8;'
+sleep 2
+./stop.sh
+)
+
+install -Dm644 /vagrant/provisioner/system/percona.service /etc/systemd/system/percona.service
 
 # wordpress
 (
