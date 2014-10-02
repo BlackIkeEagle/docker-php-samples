@@ -37,7 +37,7 @@ install -Dm644 /vagrant/provisioner/system/percona.service /etc/systemd/system/p
 cd /srv
 curl -sO https://wordpress.org/latest.tar.gz
 tar xf latest.tar.gz
-chown http:http wordpress
+chown http:http -R wordpress
 )
 
 (
@@ -54,7 +54,7 @@ cd /srv
 curl -sO http://resources.mybb.com/downloads/mybb_1800.zip
 unzip mybb_1800.zip
 mv Upload mybb
-chown http:http mybb
+chown http:http -R mybb
 )
 
 (
@@ -70,7 +70,7 @@ install -Dm644 /vagrant/provisioner/php/phpinfo.php /srv/mybb/phpinfo.php
 cd /srv
 curl -sO https://download.owncloud.org/community/owncloud-7.0.2.tar.bz2
 tar xf owncloud-7.0.2.tar.bz2
-chown http:http owncloud
+chown http:http -R owncloud
 )
 
 (
