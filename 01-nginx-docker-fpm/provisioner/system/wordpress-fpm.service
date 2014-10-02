@@ -6,7 +6,7 @@ After=docker.service
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill wordpress-fpm
 ExecStartPre=-/usr/bin/docker rm wordpress-fpm
-ExecStart=/usr/bin/docker run --name wordpress-fpm -v /srv/wordpress:/srv/wordpress -p 127.0.0.1:9001:9000 sample/wordpress-fpm
+ExecStart=/usr/bin/docker run --name wordpress-fpm -v /srv/wordpress:/srv/wordpress -p 192.168.1.1:9001:9000 sample/wordpress-fpm
 ExecStop=/usr/bin/docker stop wordpress-fpm
 
 [Install]
