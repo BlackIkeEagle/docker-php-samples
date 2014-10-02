@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman -Syu --noconfirm vim unzip percona-server-clients nginx docker
+pacman -Syu --noconfirm vim unzip percona-server-clients docker
 
 install -Dm644 /vagrant/provisioner/system/50-docker.conf /etc/sysctl.d/50-docker.conf
 
@@ -8,10 +8,13 @@ cp -a /usr/lib/systemd/system/docker.service /etc/systemd/system/
 sed -e 's/^ExecStart.*/ExecStart=\/usr\/bin\/docker --bip=192.168.1.1\/24 -d -H fd:\/\//' -i /etc/systemd/system/docker.service
 systemctl start docker.service
 
-mkdir -p /etc/nginx/sites-enabled
+# nginx
+(
+cd /var/docker/nginx
+./build.sh
+)
 
-rm /etc/nginx/nginx.conf
-install -Dm644 /vagrant/provisioner/nginx/nginx.conf /etc/nginx/nginx.conf
+install -Dm644 /vagrant/provisioner/system/nginx.service /etc/systemd/system/nginx.service
 
 # percona
 (
@@ -42,7 +45,6 @@ cd /var/docker/wordpress-fpm
 ./build.sh
 )
 
-install -Dm644 /vagrant/provisioner/nginx/01-wordpress.conf /etc/nginx/sites-enabled/01-wordpress.conf
 install -Dm644 /vagrant/provisioner/system/wordpress-fpm.service /etc/systemd/system/wordpress-fpm.service
 install -Dm644 /vagrant/provisioner/php/phpinfo.php /srv/wordpress/phpinfo.php
 
@@ -60,7 +62,6 @@ cd /var/docker/mybb-fpm
 ./build.sh
 )
 
-install -Dm644 /vagrant/provisioner/nginx/02-mybb.conf /etc/nginx/sites-enabled/02-mybb.conf
 install -Dm644 /vagrant/provisioner/system/mybb-fpm.service /etc/systemd/system/mybb-fpm.service
 install -Dm644 /vagrant/provisioner/php/phpinfo.php /srv/mybb/phpinfo.php
 
@@ -77,7 +78,6 @@ cd /var/docker/owncloud-fpm
 ./build.sh
 )
 
-install -Dm644 /vagrant/provisioner/nginx/03-owncloud.conf /etc/nginx/sites-enabled/03-owncloud.conf
 install -Dm644 /vagrant/provisioner/system/owncloud-fpm.service /etc/systemd/system/owncloud-fpm.service
 install -Dm644 /vagrant/provisioner/php/phpinfo.php /srv/owncloud/phpinfo.php
 
