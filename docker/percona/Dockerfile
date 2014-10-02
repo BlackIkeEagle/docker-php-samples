@@ -7,7 +7,6 @@ RUN rm /etc/mysql/my.cnf
 ADD ./my.cnf /etc/mysql/my.cnf
 ADD ./create-mysql-structure.sh /opt/create-mysql-structure.sh
 RUN chmod +x /opt/create-mysql-structure.sh
-#RUN /opt/create-mysql-structure.sh
 
 EXPOSE 3306
 
