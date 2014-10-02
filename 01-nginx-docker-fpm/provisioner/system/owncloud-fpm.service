@@ -6,7 +6,7 @@ After=docker.service
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill owncloud-fpm
 ExecStartPre=-/usr/bin/docker rm owncloud-fpm
-ExecStart=/usr/bin/docker run --name owncloud-fpm -v /srv/owncloud:/srv/owncloud -p 127.0.0.1:9003:9000 sample/owncloud-fpm /usr/bin/php-fpm --nodaemonize
+ExecStart=/usr/bin/docker run --name owncloud-fpm -v /srv/owncloud:/srv/owncloud -p 127.0.0.1:9003:9000 sample/owncloud-fpm
 ExecStop=/usr/bin/docker stop owncloud-fpm
 
 [Install]
