@@ -10,7 +10,7 @@ systemctl start docker.service
 
 # nginx
 (
-cd /var/docker/nginx
+cd /var/docker/nginx_01
 ./build.sh
 )
 
