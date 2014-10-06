@@ -1,0 +1,14 @@
+[Unit]
+Description=wordpress-fpm
+After=docker.service
+After=percona.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill wordpress-fpm
+ExecStartPre=-/usr/bin/docker rm wordpress-fpm
+ExecStart=/usr/bin/docker run --name wordpress-fpm -v /srv/wordpress:/srv/wordpress --link percona:mysql sample/wordpress-fpm
+ExecStop=/usr/bin/docker stop wordpress-fpm
+
+[Install]
+WantedBy=multi-user.target

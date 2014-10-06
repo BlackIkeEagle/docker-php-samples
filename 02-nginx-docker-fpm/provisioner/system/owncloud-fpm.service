@@ -1,0 +1,14 @@
+[Unit]
+Description=owncloud-fpm
+After=docker.service
+After=percona.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill owncloud-fpm
+ExecStartPre=-/usr/bin/docker rm owncloud-fpm
+ExecStart=/usr/bin/docker run --name owncloud-fpm -v /srv/owncloud:/srv/owncloud --link percona:mysql sample/owncloud-fpm
+ExecStop=/usr/bin/docker stop owncloud-fpm
+
+[Install]
+WantedBy=multi-user.target

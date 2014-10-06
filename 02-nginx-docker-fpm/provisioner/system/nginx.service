@@ -1,0 +1,16 @@
+[Unit]
+Description=nginx
+After=docker.service
+After=wordpress-fpm.service
+After=mybb-fpm.service
+After=owncloud-fpm.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill nginx
+ExecStartPre=-/usr/bin/docker rm nginx
+ExecStart=/usr/bin/docker run --name nginx -v /srv/wordpress:/srv/wordpress -v /srv/mybb:/srv/mybb -v /srv/owncloud:/srv/owncloud --link wordpress-fpm:wordpress --link mybb-fpm:mybb --link owncloud-fpm:owncloud -p 0.0.0.0:80:80 blackikeeagle/nginx
+ExecStop=/usr/bin/docker stop nginx
+
+[Install]
+WantedBy=multi-user.target
