@@ -23,9 +23,9 @@ cd /var/docker/percona
 ./init.sh
 ./run.sh &
 sleep 10
-mysql -uadmin -padmin -h127.0.0.1 -e 'CREATE DATABASE wordpress DEFAULT CHARSET UTF8;'
-mysql -uadmin -padmin -h127.0.0.1 -e 'CREATE DATABASE mybb DEFAULT CHARSET UTF8;'
-mysql -uadmin -padmin -h127.0.0.1 -e 'CREATE DATABASE owncloud DEFAULT CHARSET UTF8;'
+mysql -uadmin -padmin -h192.168.1.1 -e 'CREATE DATABASE wordpress DEFAULT CHARSET UTF8;'
+mysql -uadmin -padmin -h192.168.1.1 -e 'CREATE DATABASE mybb DEFAULT CHARSET UTF8;'
+mysql -uadmin -padmin -h192.168.1.1 -e 'CREATE DATABASE owncloud DEFAULT CHARSET UTF8;'
 sleep 2
 ./stop.sh
 )
