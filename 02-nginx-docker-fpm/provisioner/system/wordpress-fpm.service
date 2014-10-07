@@ -2,6 +2,7 @@
 Description=wordpress-fpm
 After=docker.service
 After=percona.service
+Requires=percona.service
 
 [Service]
 TimeoutStartSec=0

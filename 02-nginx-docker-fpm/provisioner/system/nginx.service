@@ -4,6 +4,9 @@ After=docker.service
 After=wordpress-fpm.service
 After=mybb-fpm.service
 After=owncloud-fpm.service
+Requires=wordpress-fpm.service
+Requires=mybb-fpm.service
+Requires=owncloud-fpm.service
 
 [Service]
 TimeoutStartSec=0
